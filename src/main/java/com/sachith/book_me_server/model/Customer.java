@@ -1,6 +1,8 @@
 package com.sachith.book_me_server.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Pattern;
+
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -14,7 +16,8 @@ public class Customer {
 
     private String name;
 
-    @Column(name = "phone_number", nullable = false)
+    @Column(name = "phone_number", nullable = false, unique = true)
+    @Pattern(regexp = "^[0-9]{10}$", message = "Phone number must be exactly 10 digits")
     private String phoneNumber;
 
     @Column(name = "created_at")

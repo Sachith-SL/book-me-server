@@ -4,10 +4,13 @@ import com.sachith.book_me_server.model.TimeSlot;
 import com.sachith.book_me_server.service.TimeSlotService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.time.LocalDate;
 import java.util.List;
 
 @RestController
 @RequestMapping("/api/timeslots")
+@CrossOrigin(origins = "*")
 public class TimeSlotController {
 
     private final TimeSlotService timeSlotService;
@@ -20,6 +23,12 @@ public class TimeSlotController {
     @PostMapping
     public ResponseEntity<TimeSlot> addTimeSlot(@RequestBody TimeSlot timeSlot) {
         TimeSlot saved = timeSlotService.addTimeSlot(timeSlot);
+        return ResponseEntity.ok(saved);
+    }
+
+    @PostMapping("date")
+    public ResponseEntity<List<TimeSlot>> addTimeSlotByDate(@RequestParam LocalDate date) {
+        List<TimeSlot> saved = timeSlotService.addTimeSlotByDate(date);
         return ResponseEntity.ok(saved);
     }
 
@@ -57,5 +66,13 @@ public class TimeSlotController {
         List<TimeSlot> availableSlots = timeSlotService.getAvailableTimeSlots();
         return ResponseEntity.ok(availableSlots);
     }
+
+    //    Get all time slots by date
+    @GetMapping("date")
+    public ResponseEntity<List<TimeSlot>> getTimeSlotsByDate(@RequestParam LocalDate date) {
+        List<TimeSlot> timeSlots = timeSlotService.getTimeSlotsByDateAndAvailabilityStatus(date);
+        return ResponseEntity.ok(timeSlots);
+    }
+
 }
 
