@@ -10,6 +10,14 @@ import java.util.List;
 @Table(name = "customer")
 public class Customer {
 
+    public Customer() {
+    }
+
+    public Customer(String name, String phoneNumber) {
+        this.name = name;
+        this.phoneNumber = phoneNumber;
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
