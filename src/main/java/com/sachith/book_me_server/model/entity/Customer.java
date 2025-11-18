@@ -1,4 +1,4 @@
-package com.sachith.book_me_server.model;
+package com.sachith.book_me_server.model.entity;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Pattern;

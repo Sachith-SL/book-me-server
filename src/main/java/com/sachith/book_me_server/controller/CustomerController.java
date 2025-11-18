@@ -1,6 +1,6 @@
 package com.sachith.book_me_server.controller;
 
-import com.sachith.book_me_server.model.Customer;
+import com.sachith.book_me_server.model.entity.Customer;
 import com.sachith.book_me_server.service.CustomerService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

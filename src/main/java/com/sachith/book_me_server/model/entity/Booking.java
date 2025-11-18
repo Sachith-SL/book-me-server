@@ -1,4 +1,4 @@
-package com.sachith.book_me_server.model;
+package com.sachith.book_me_server.model.entity;
 
 import com.sachith.book_me_server.model.enums.BookingStatus;
 import com.sachith.book_me_server.model.enums.SportType;
@@ -38,6 +38,8 @@ public class Booking {
 
     @Column(name = "created_date")
     private LocalDateTime createdDate = LocalDateTime.now();
+
+//    Getters and Setters
 
     public Long getId() {
         return id;

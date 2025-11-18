@@ -1,4 +1,4 @@
-package com.sachith.book_me_server.model;
+package com.sachith.book_me_server.model.dto;
 
 import com.sachith.book_me_server.model.enums.SportType;
 

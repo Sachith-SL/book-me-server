@@ -1,6 +1,6 @@
 package com.sachith.book_me_server.service;
 
-import com.sachith.book_me_server.model.TimeSlot;
+import com.sachith.book_me_server.model.entity.TimeSlot;
 import com.sachith.book_me_server.model.enums.AvailabilityStatus;
 import com.sachith.book_me_server.repository.TimeSlotRepository;
 import org.springframework.stereotype.Service;
@@ -71,6 +71,12 @@ public class TimeSlotService {
             return timeSlotRepository.save(existing);
         }).orElseThrow(() -> new RuntimeException("TimeSlot not found with id " + id));
     }
+    public TimeSlot updateTimeSlotByStatus(Long id, AvailabilityStatus status) {
+        return timeSlotRepository.findById(id).map(existing -> {
+            existing.setAvailabilityStatus(status);
+            return timeSlotRepository.save(existing);
+        }).orElseThrow(() -> new RuntimeException("TimeSlot not found with id " + id));
+    }
 
     // Delete
     public void deleteTimeSlot(Long id) {
@@ -92,5 +98,7 @@ public class TimeSlotService {
     public List<TimeSlot> getTimeSlotsByDateAndAvailabilityStatus(LocalDate date) {
         return timeSlotRepository.findByDateAndAvailabilityStatus(date,AvailabilityStatus.AVAILABLE);
     }
+
+
 }
 

@@ -1,9 +1,9 @@
 package com.sachith.book_me_server.service;
 
-import com.sachith.book_me_server.model.Booking;
-import com.sachith.book_me_server.model.BookingRequest;
-import com.sachith.book_me_server.model.Customer;
-import com.sachith.book_me_server.model.TimeSlot;
+import com.sachith.book_me_server.model.entity.Booking;
+import com.sachith.book_me_server.model.dto.BookingRequest;
+import com.sachith.book_me_server.model.entity.Customer;
+import com.sachith.book_me_server.model.entity.TimeSlot;
 import com.sachith.book_me_server.model.enums.AvailabilityStatus;
 import com.sachith.book_me_server.model.enums.BookingStatus;
 import com.sachith.book_me_server.repository.BookingRepository;
@@ -13,8 +13,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.IntStream;
 
 @Service
 public class BookingService {
@@ -33,48 +35,15 @@ public class BookingService {
     }
 
     // Create Booking
-    public Booking addBooking(Booking booking, Long customerId, List<Long> timeSlotIds) {
-        // Fetch customer
-        var customer = customerRepository.findById(customerId)
-                .orElseThrow(() -> new RuntimeException("Customer not found"));
-
-        // Fetch all available time slots
-        List<TimeSlot> availableSlots = timeSlotRepository.findByAvailabilityStatus(AvailabilityStatus.AVAILABLE);
-
-        // Filter requested IDs that are available
-        List<TimeSlot> timeSlotsToBook = availableSlots.stream()
-                .filter(ts -> timeSlotIds.contains(ts.getId()))
-                .toList();
-
-        if (timeSlotsToBook.isEmpty() || timeSlotsToBook.size() != timeSlotIds.size()) {
-            throw new RuntimeException("One or more selected time slots are not available");
-        }
-
-        // Set customer and time slots
-        booking.setCustomer(customer);
-        booking.setTimeSlots(timeSlotsToBook);
-
-        // Calculate total price
-        BigDecimal totalPrice = timeSlotsToBook.stream()
-                .map(TimeSlot::getSlotPrice)
-                .reduce(BigDecimal.ZERO, BigDecimal::add);
-        booking.setTotalPrice(totalPrice);
-
-        // Save booking
-        Booking savedBooking = bookingRepository.save(booking);
-
-        // Mark booked slots as BOOKED
-        timeSlotsToBook.forEach(ts -> {
-            ts.setAvailabilityStatus(AvailabilityStatus.BOOKED);
-            timeSlotRepository.save(ts);
-        });
-
-        return savedBooking;
-    }
-
-    // Create Booking
     @Transactional
     public Booking addBooking(BookingRequest request) {
+        if(request == null){
+            throw new RuntimeException("Request  is null");
+        }
+
+        if(request.getDate().isBefore(LocalDate.now()) || request.getDate().isEqual(LocalDate.now())){
+            throw new RuntimeException("Date is expired");
+        }
 
         // Save Customer
         Customer newCustomer = new Customer(request.getName(), request.getPhone());
@@ -168,5 +137,10 @@ public class BookingService {
         }
         bookingRepository.deleteById(id);
     }
+
+//    TODO:implement this
+//    public Booking getBookingByPhone(String phone) {
+//        return bookingRepository.findById(phone);
+//    }
 }
 

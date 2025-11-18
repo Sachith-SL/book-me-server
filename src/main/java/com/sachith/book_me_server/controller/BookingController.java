@@ -1,7 +1,7 @@
 package com.sachith.book_me_server.controller;
 
-import com.sachith.book_me_server.model.Booking;
-import com.sachith.book_me_server.model.BookingRequest;
+import com.sachith.book_me_server.model.dto.BookingRequest;
+import com.sachith.book_me_server.model.entity.Booking;
 import com.sachith.book_me_server.service.BookingService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -19,14 +19,6 @@ public class BookingController {
     }
 
     // Add new booking
-    @PostMapping("/{id}")
-    public ResponseEntity<Booking> addBookingByCustomerId(
-            @RequestBody Booking booking,
-            @RequestParam Long customerId,
-            @RequestParam List<Long> timeSlotIds) {
-        Booking saved = bookingService.addBooking(booking, customerId, timeSlotIds);
-        return ResponseEntity.ok(saved);
-    }
     @PostMapping
     public ResponseEntity<Booking> addBooking(@RequestBody BookingRequest request) {
         Booking saved = bookingService.addBooking(request);
@@ -46,6 +38,12 @@ public class BookingController {
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
+//    @GetMapping("/{phone}")
+//    public ResponseEntity<Booking> getBookingByPhone(@PathVariable String phone) {
+//        return bookingService.getBookingByPhone(phone)
+//                .map(ResponseEntity::ok)
+//                .orElse(ResponseEntity.notFound().build());
+//    }
 
     // Update booking
     @PutMapping("/{id}")

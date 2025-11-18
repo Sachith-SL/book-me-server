@@ -1,6 +1,6 @@
 package com.sachith.book_me_server.service;
 
-import com.sachith.book_me_server.model.Customer;
+import com.sachith.book_me_server.model.entity.Customer;
 import com.sachith.book_me_server.repository.CustomerRepository;
 import org.springframework.stereotype.Service;
 import java.util.List;
