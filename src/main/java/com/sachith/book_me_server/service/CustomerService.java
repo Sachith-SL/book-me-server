@@ -1,50 +1,23 @@
 package com.sachith.book_me_server.service;
 
 import com.sachith.book_me_server.model.entity.Customer;
-import com.sachith.book_me_server.repository.CustomerRepository;
-import org.springframework.stereotype.Service;
+
 import java.util.List;
 import java.util.Optional;
 
-@Service
-public class CustomerService {
-
-    private final CustomerRepository customerRepository;
-
-    public CustomerService(CustomerRepository customerRepository) {
-        this.customerRepository = customerRepository;
-    }
-
+public interface CustomerService {
     // Create
-    public Customer addCustomer(Customer customer) {
-        return customerRepository.save(customer);
-    }
+    public Customer addCustomer(Customer customer);
 
     // Read all
-    public List<Customer> getAllCustomers() {
-        return customerRepository.findAll();
-    }
+    public List<Customer> getAllCustomers();
 
     // Read by ID
-    public Optional<Customer> getCustomerById(Long id) {
-        return customerRepository.findById(id);
-    }
+    public Optional<Customer> getCustomerById(Long id);
 
     // Update
-    public Customer updateCustomer(Long id, Customer updatedCustomer) {
-        return customerRepository.findById(id).map(existing -> {
-            existing.setName(updatedCustomer.getName());
-            existing.setPhoneNumber(updatedCustomer.getPhoneNumber());
-            return customerRepository.save(existing);
-        }).orElseThrow(() -> new RuntimeException("Customer not found with id " + id));
-    }
+    public Customer updateCustomer(Long id, Customer updatedCustomer);
 
     // Delete
-    public void deleteCustomer(Long id) {
-        if(!customerRepository.existsById(id)) {
-            throw new RuntimeException("Customer not found with id " + id);
-        }
-        customerRepository.deleteById(id);
-    }
+    public void deleteCustomer(Long id);
 }
-

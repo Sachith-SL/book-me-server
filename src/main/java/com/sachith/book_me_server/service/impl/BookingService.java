@@ -1,4 +1,4 @@
-package com.sachith.book_me_server.service;
+package com.sachith.book_me_server.service.impl;
 
 import com.sachith.book_me_server.model.entity.Booking;
 import com.sachith.book_me_server.model.dto.BookingRequest;
@@ -16,7 +16,6 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.IntStream;
 
 @Service
 public class BookingService {

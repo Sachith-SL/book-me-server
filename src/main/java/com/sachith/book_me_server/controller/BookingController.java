@@ -2,7 +2,7 @@ package com.sachith.book_me_server.controller;
 
 import com.sachith.book_me_server.model.dto.BookingRequest;
 import com.sachith.book_me_server.model.entity.Booking;
-import com.sachith.book_me_server.service.BookingService;
+import com.sachith.book_me_server.service.impl.BookingService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;

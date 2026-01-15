@@ -2,7 +2,7 @@ package com.sachith.book_me_server.controller;
 
 import com.sachith.book_me_server.model.dto.ApiResponse;
 import com.sachith.book_me_server.model.entity.TimeSlot;
-import com.sachith.book_me_server.service.TimeSlotService;
+import com.sachith.book_me_server.service.impl.TimeSlotService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

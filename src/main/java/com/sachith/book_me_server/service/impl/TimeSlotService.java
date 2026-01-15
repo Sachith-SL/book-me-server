@@ -1,4 +1,4 @@
-package com.sachith.book_me_server.service;
+package com.sachith.book_me_server.service.impl;
 
 import com.sachith.book_me_server.model.entity.TimeSlot;
 import com.sachith.book_me_server.model.enums.AvailabilityStatus;
