@@ -1,7 +1,9 @@
 package com.sachith.book_me_server.controller;
 
+import com.sachith.book_me_server.model.dto.ApiResponse;
 import com.sachith.book_me_server.model.entity.TimeSlot;
 import com.sachith.book_me_server.service.TimeSlotService;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -42,9 +44,9 @@ public class TimeSlotController {
 
     //    Get all time slots by date
     @GetMapping("date")
-    public ResponseEntity<List<TimeSlot>> getTimeSlotsByDate(@RequestParam LocalDate date) {
+    public ResponseEntity<ApiResponse<List<TimeSlot>>> getTimeSlotsByDate(@RequestParam LocalDate date) {
         List<TimeSlot> timeSlots = timeSlotService.getTimeSlotsByDateAndAvailabilityStatus(date);
-        return ResponseEntity.ok(timeSlots);
+        return ResponseEntity.ok(new ApiResponse<>(true, HttpStatus.OK.name(), timeSlots));
     }
 
 }
